@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bjwr78tsb2cif"]
+[gd_scene load_steps=9 format=3 uid="uid://bjwr78tsb2cif"]
 
 [ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="1_l6wid"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/directory/DirectoryFilter.cs" id="1_rb5ea"]
+[ext_resource type="Theme" uid="uid://fqwfrgg3h6rx" path="res://addons/scene_manager_mono/theme/scene_manager_theme.tres" id="2_fo43c"]
 [ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="2_ptr6i"]
 [ext_resource type="Texture2D" uid="uid://bi3celtggigrx" path="res://addons/scene_manager_mono/icons/GuiVisibilityVisible.svg" id="3_5ftta"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/CollapseButton.cs" id="4_tk8cv"]
@@ -16,9 +17,10 @@ grow_horizontal = 2
 script = ExtResource("1_rb5ea")
 LabelText = "Directory Filter"
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 layout_mode = 2
-color = Color(0.211765, 0.239216, 0.290196, 1)
+theme = ExtResource("2_fo43c")
+theme_type_variation = &"panel_dark"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

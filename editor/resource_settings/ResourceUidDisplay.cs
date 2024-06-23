@@ -8,8 +8,8 @@ namespace SceneManagerMono.Editor.Resource_Settings;
 
 [Tool]
 public partial class ResourceUidDisplay : Container {
-    private LineEdit FileInputLong => GetNode<LineEdit>("%UID long");
-    private LineEdit FileInputString => GetNode<LineEdit>("%UID string");
+    [Export] private LineEdit fileInputLong;
+    [Export] private LineEdit fileInputString;
 
     ///// Editor Plugin Helper /////
 
@@ -53,12 +53,12 @@ public partial class ResourceUidDisplay : Container {
         
         if (ResourceLoader.Exists(path)) {
             var uid = ResourceLoader.GetResourceUid(SceneManagerSettings.GetSceneListPath());
-            FileInputLong.Text = uid.ToString();
-            FileInputString.Text = ResourceUid.IdToText(uid);
+            fileInputLong.Text = uid.ToString();
+            fileInputString.Text = ResourceUid.IdToText(uid);
         }
         else {
-            FileInputLong.Text = "";
-            FileInputString.Text = "";
+            fileInputLong.Text = "";
+            fileInputString.Text = "";
         }
     }
 }

@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://0aub6ivqif7s"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/ResourcePathDisplay.cs" id="1_ggbcf"]
+[ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="2_dbw8i"]
+
+[node name="Resource Path Dispaly" type="HBoxContainer" node_paths=PackedStringArray("fileInput")]
+script = ExtResource("1_ggbcf")
+fileInput = NodePath("File Input")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.25
+text = "data path"
+
+[node name="File Input" parent="." instance=ExtResource("2_dbw8i")]
+layout_mode = 2
+fileType = 3
+editable = false
+ShowFileDialog = false

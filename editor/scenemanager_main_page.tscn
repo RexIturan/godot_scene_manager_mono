@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://4pbkw4qoxgk8"]
+[gd_scene load_steps=15 format=3 uid="uid://4pbkw4qoxgk8"]
 
 [ext_resource type="PackedScene" uid="uid://0d8urmbgw57v" path="res://addons/scene_manager_mono/editor/resource_settings/resource_setting_section.tscn" id="1_gbun4"]
+[ext_resource type="Theme" uid="uid://fqwfrgg3h6rx" path="res://addons/scene_manager_mono/theme/scene_manager_theme.tres" id="1_gs72k"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/ToggleShowDeleteButton.cs" id="5_fe3d8"]
 [ext_resource type="PackedScene" uid="uid://dkryb2qu7s8dq" path="res://addons/scene_manager_mono/editor/scene/add_new_scene.tscn" id="6_1885s"]
 [ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="6_kia6x"]
@@ -15,12 +16,10 @@
 [ext_resource type="PackedScene" uid="uid://bcararg0gbnu2" path="res://addons/scene_manager_mono/editor/scene_list/grouped_scene_list.tscn" id="15_ckold"]
 
 [node name="main page" type="Control"]
+custom_minimum_size = Vector2(300, 600)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+theme = ExtResource("1_gs72k")
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
@@ -29,9 +28,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+current_tab = 1
 
 [node name="Settings" type="VBoxContainer" parent="TabContainer"]
+visible = false
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="resource setting section" parent="TabContainer/Settings" instance=ExtResource("1_gbun4")]
 layout_mode = 2
@@ -54,10 +56,10 @@ layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/SceneSettings/VBoxContainer/MarginContainer"]
+[node name="Divider" type="Panel" parent="TabContainer/Settings/SceneSettings/VBoxContainer/MarginContainer"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-color = Color(0.211765, 0.239216, 0.290196, 1)
+theme_type_variation = &"panel_light"
 
 [node name="Scene Settings" type="HBoxContainer" parent="TabContainer/Settings/SceneSettings/VBoxContainer"]
 layout_mode = 2
@@ -103,9 +105,9 @@ alignment = 2
 [node name="MarginContainer2" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer"]
 layout_mode = 2
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2"]
+[node name="ColorRect" type="Panel" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2"]
 layout_mode = 2
-color = Color(0.211765, 0.239216, 0.290196, 1)
+theme_type_variation = &"panel_dark"
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2"]
 layout_mode = 2
@@ -134,10 +136,10 @@ layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_right = 4
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Divider"]
+[node name="Divider" type="Panel" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Divider"]
 custom_minimum_size = Vector2(0, 1)
 layout_mode = 2
-color = Color(0.211765, 0.239216, 0.290196, 1)
+theme_type_variation = &"panel_light"
 
 [node name="Include Directory Filter" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer" instance=ExtResource("8_5fbua")]
 unique_name_in_owner = true
@@ -151,8 +153,8 @@ size_flags_vertical = 3
 LabelText = "Exclude"
 
 [node name="Scenes" type="VBoxContainer" parent="TabContainer"]
-visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="Create Scene Data" type="HBoxContainer" parent="TabContainer/Scenes"]
 layout_mode = 2
@@ -162,10 +164,10 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Scenes/Create Scene Data/MarginContainer"]
+[node name="ColorRect" type="Panel" parent="TabContainer/Scenes/Create Scene Data/MarginContainer"]
 visible = false
 layout_mode = 2
-color = Color(0.129412, 0.14902, 0.180392, 1)
+theme_type_variation = &"panel_dark"
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Create Scene Data/MarginContainer"]
 layout_mode = 2
@@ -204,9 +206,9 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ColorRect" type="ColorRect" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer"]
+[node name="ColorRect" type="Panel" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer"]
 layout_mode = 2
-color = Color(0.129412, 0.14902, 0.180392, 1)
+theme_type_variation = &"panel_dark"
 
 [node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer"]
 layout_mode = 2
@@ -217,11 +219,13 @@ theme_override_constants/margin_bottom = 4
 
 [node name="TabContainer" type="TabContainer" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer"]
 layout_mode = 2
+current_tab = 0
 script = ExtResource("7_sidjj")
 sceneGroupPagePrefab = ExtResource("9_c0afy")
 
 [node name="All" type="Control" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer/TabContainer"]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="Grouped Scene List" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer/TabContainer/All" instance=ExtResource("15_ckold")]
 layout_mode = 1
@@ -229,6 +233,7 @@ layout_mode = 1
 [node name="Groups" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="Groups" type="VBoxContainer" parent="TabContainer/Groups"]
 layout_mode = 1
@@ -269,6 +274,7 @@ layout_mode = 2
 [node name="Tags" type="Control" parent="TabContainer"]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Tags"]
 layout_mode = 1

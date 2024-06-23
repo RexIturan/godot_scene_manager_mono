@@ -5,3 +5,10 @@
 [resource]
 script = ExtResource("2_l02db")
 SceneDict = {}
+sceneGroups = []
+sceneDatas = []
+groupTags = []
+sceneTags = []
+unusedTags = []
+excludeDirs = []
+includeDirs = []

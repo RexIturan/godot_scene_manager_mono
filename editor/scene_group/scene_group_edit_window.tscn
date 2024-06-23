@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://mhdle8ewpck0"]
+[gd_scene load_steps=11 format=3 uid="uid://mhdle8ewpck0"]
 
 [ext_resource type="Texture2D" uid="uid://rkmxrnyjmxwn" path="res://addons/scene_manager_mono/icons/FileBroken.svg" id="1_mo57m"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_group/SceneGroupEditWindow.cs" id="1_v34nm"]
+[ext_resource type="Theme" uid="uid://fqwfrgg3h6rx" path="res://addons/scene_manager_mono/theme/scene_manager_theme.tres" id="2_3qxrt"]
 [ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="2_au3g6"]
 [ext_resource type="Texture2D" uid="uid://by3tbb6xnp50i" path="res://addons/scene_manager_mono/icons/Remove.svg" id="2_qsaa8"]
 [ext_resource type="Texture2D" uid="uid://bi3celtggigrx" path="res://addons/scene_manager_mono/icons/GuiVisibilityVisible.svg" id="3_vgjai"]
@@ -17,13 +18,14 @@ size = Vector2i(500, 500)
 always_on_top = true
 script = ExtResource("1_v34nm")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="Panel" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.113725, 0.133333, 0.160784, 1)
+theme = ExtResource("2_3qxrt")
+theme_type_variation = &"panel_dark"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -36,9 +38,10 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Panel" type="ColorRect" parent="MarginContainer"]
+[node name="Panel" type="Panel" parent="MarginContainer"]
 layout_mode = 2
-color = Color(0.211765, 0.239216, 0.290196, 1)
+theme = ExtResource("2_3qxrt")
+theme_type_variation = &"panel_light"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
@@ -77,7 +80,7 @@ text = "DisplayName: "
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "puzzle"
+text = "Level"
 
 [node name="Key Row" type="HBoxContainer" parent="MarginContainer/MarginContainer/VBoxContainer"]
 visible = false

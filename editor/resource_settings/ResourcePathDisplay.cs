@@ -4,6 +4,8 @@ using System.Runtime.Loader;
 using Godot;
 using SceneManagerMono.Util;
 
+namespace SceneManagerMono.Editor.Resource_Settings;
+
 [Tool]
 public partial class ResourcePathDisplay : Container {
     [Export] private FileInput fileInput;
@@ -43,12 +45,14 @@ public partial class ResourcePathDisplay : Container {
         ProjectSettings.Singleton.TryDisconnect(ProjectSettings.SignalName.SettingsChanged, OnProjectSettingsChanged);
     }
 
-    ///// Private Functions /////
+    ///// Callback Functions /////
     
     private void OnProjectSettingsChanged() {
         UpdateResourcePath();
     }
 
+    ///// Private Functions /////
+    
     private void UpdateResourcePath() {
         fileInput.Text = SceneManagerSettings.GetSceneListPath();
     }

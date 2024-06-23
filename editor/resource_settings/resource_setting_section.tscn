@@ -9,10 +9,10 @@
 [ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="6_73q7a"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/CreateNewSceneListResourceButton.cs" id="6_87kpl"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/CreateResourceDialog.cs" id="7_ggo2c"]
-[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/ResourcePathDispaly.cs" id="7_guy7x"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/ResourceUidDisplay.cs" id="9_75rvv"]
 [ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/RefreshLoadedSceneList.cs" id="10_48t5v"]
 [ext_resource type="Texture2D" uid="uid://by3tbb6xnp50i" path="res://addons/scene_manager_mono/icons/Remove.svg" id="11_si8oe"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/resource_settings/ResourcePathDisplay.cs" id="12_n52tf"]
 
 [node name="resource setting section" type="VBoxContainer"]
 anchors_preset = 10
@@ -35,14 +35,14 @@ script = ExtResource("6_87kpl")
 [node name="ConfirmationDialog" type="ConfirmationDialog" parent="Resource Controls/new"]
 unique_name_in_owner = true
 initial_position = 4
-size = Vector2i(250, 108)
+size = Vector2i(250, 122)
 script = ExtResource("7_ggo2c")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Resource Controls/new/ConfirmationDialog"]
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 246.0
-offset_bottom = 66.0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = 241.0
+offset_bottom = 71.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Resource Controls/new/ConfirmationDialog/VBoxContainer"]
 layout_mode = 2
@@ -146,7 +146,7 @@ layout_mode = 2
 
 [node name="Resource Path Dispaly" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-script = ExtResource("7_guy7x")
+script = ExtResource("12_n52tf")
 
 [node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Resource Path Dispaly"]
 visible = false
@@ -179,14 +179,14 @@ size_flags_horizontal = 3
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "4349520298657531164"
+text = "6784599626609704131"
 editable = false
 
 [node name="UID string" type="LineEdit" parent="PanelContainer/MarginContainer/VBoxContainer/Resource Uid Display/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-text = "uid://b27671haevrya"
+text = "uid://c3wrmnqsukkch"
 editable = false
 
 [node name="Create New Data Resource" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]

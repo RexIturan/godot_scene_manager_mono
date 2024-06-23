@@ -69,7 +69,7 @@ public static class UnloadHelper {
         if (action is null) return;
         
         try {
-            if (baseObject.IsSignalConnected(signal, action)) {
+            if (baseObject.IsConnected(signal, Callable.From(action))) {
                 baseObject.Disconnect(signal, Callable.From(action));    
             }
         }
@@ -85,7 +85,7 @@ public static class UnloadHelper {
         if (action is null) return;
         
         try {
-            if (baseObject.IsSignalConnected(signal, action)) {
+            if (baseObject.IsConnected(signal, Callable.From(action))) {
                 baseObject.Disconnect(signal, Callable.From(action));    
             }
         }

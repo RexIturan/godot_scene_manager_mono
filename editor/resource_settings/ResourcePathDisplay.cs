@@ -32,15 +32,25 @@ public partial class ResourcePathDisplay : Container {
     }
 
     public override void _ExitTree() {
+        // GD.Print("[ResourcePathDisplay] _ExitTree");
+        
         base._ExitTree();
-
         Cleanup();
     }
 
+    protected override void Dispose(bool disposing) {
+        // GD.Print("[ResourcePathDisplay] Dispose");
+        Cleanup();
+        base.Dispose(disposing);
+    }
+
     private void Cleanup() {
+        // GD.Print("[ResourcePathDisplay] Cleanup");
+        
         UnloadHelper.UnregisterUnload(unloadHandle);
         
-        if(!IsInstanceValid(this)) return;
+        if (!IsInstanceValid(this)) return;
+        if (!IsInstanceValid(ProjectSettings.Singleton)) return;
         
         ProjectSettings.Singleton.TryDisconnect(ProjectSettings.SignalName.SettingsChanged, OnProjectSettingsChanged);
     }

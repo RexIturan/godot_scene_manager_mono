@@ -1,9 +1,17 @@
 #if TOOLS
+using System;
+using System.Runtime.Loader;
 using Godot;
 
 [Tool]
 public partial class CreateNewSceneListResourceButton : Button {
     private CreateResourceDialog Dialog => GetNode<CreateResourceDialog>("%ConfirmationDialog");
+    
+    ///// Editor Plugin Helper /////
+
+    private Action<AssemblyLoadContext> unloadHandle;
+    
+    ///// Godot Functions /////
     
     public override void _Ready() {
         base._Ready();

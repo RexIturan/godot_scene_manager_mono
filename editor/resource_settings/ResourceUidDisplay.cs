@@ -36,6 +36,7 @@ public partial class ResourceUidDisplay : Container {
         UnloadHelper.UnregisterUnload(unloadHandle);
         
         if(!IsInstanceValid(this)) return;
+        if (!IsInstanceValid(ProjectSettings.Singleton)) return;
         
         ProjectSettings.Singleton.TryDisconnect(ProjectSettings.SignalName.SettingsChanged, OnProjectSettingsChanged);
     }

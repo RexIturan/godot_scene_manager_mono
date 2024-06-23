@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://q6tdk4infk33"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/runtime/SceneManager.cs" id="1_jp4kt"]
+
+[node name="SceneManager" type="Node"]
+script = ExtResource("1_jp4kt")

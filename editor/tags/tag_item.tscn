@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh15144mety5w"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/tags/TagItem.cs" id="1_dqrfc"]
+[ext_resource type="Texture2D" uid="uid://by3tbb6xnp50i" path="res://addons/scene_manager_mono/icons/Remove.svg" id="1_hkyr2"]
+
+[node name="Tag Item" type="HBoxContainer" node_paths=PackedStringArray("lineEdit", "groupToggle", "sceneToggle", "deleteButton")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 30.0
+grow_horizontal = 2
+size_flags_vertical = 3
+script = ExtResource("1_dqrfc")
+lineEdit = NodePath("LineEdit")
+groupToggle = NodePath("GroupToggle")
+sceneToggle = NodePath("SceneToggle")
+deleteButton = NodePath("Delete")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="GroupToggle" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Group"
+
+[node name="SceneToggle" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+toggle_mode = true
+text = "Scene"
+
+[node name="Delete" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+toggle_mode = true
+icon = ExtResource("1_hkyr2")

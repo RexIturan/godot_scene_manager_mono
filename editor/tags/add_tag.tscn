@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cg7gkg4mxsabs"]
+
+[ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="1_63etp"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/tags/AddTag.cs" id="1_j0r3q"]
+
+[node name="Add Tag" type="HBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+script = ExtResource("1_j0r3q")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Add" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("1_63etp")
+icon_alignment = 1

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dv6bwafs62ir2"]
+
+[ext_resource type="PackedScene" uid="uid://dh15144mety5w" path="res://addons/scene_manager_mono/editor/tags/tag_item.tscn" id="1_36vtc"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/tags/TagList.cs" id="1_sfdnq"]
+
+[node name="Tag List" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 64.0
+grow_horizontal = 2
+script = ExtResource("1_sfdnq")
+tagItemPrefab = ExtResource("1_36vtc")

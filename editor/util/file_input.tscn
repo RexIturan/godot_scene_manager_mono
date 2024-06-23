@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bej6tarrcvnaw"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/FileInput.cs" id="1_6q4fu"]
+[ext_resource type="PackedScene" uid="uid://cuhc3kunc6ov2" path="res://addons/scene_manager_mono/editor/util/open_file_dialog.tscn" id="1_a3fmh"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/DragFilePathInput.cs" id="1_nm1me"]
+[ext_resource type="StyleBox" uid="uid://cnqfy686ckfa0" path="res://addons/scene_manager_mono/theme/invalid_stylebox.tres" id="2_4kpyf"]
+[ext_resource type="StyleBox" uid="uid://dae1i7y200ufk" path="res://addons/scene_manager_mono/theme/invalid_stylebox_readonly.tres" id="3_sr43w"]
+
+[node name="File Input" type="HBoxContainer"]
+offset_right = 94.0
+offset_bottom = 29.0
+size_flags_horizontal = 3
+script = ExtResource("1_6q4fu")
+editable = true
+ShowFileDialog = true
+invalidLineEditTheme = ExtResource("2_4kpyf")
+invalidLineEditReadOnlyTheme = ExtResource("3_sr43w")
+
+[node name="Drag File Input" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+placeholder_text = "res://"
+editable = false
+script = ExtResource("1_nm1me")
+FileExtensionFilter = "*.tscn, *.scn, *.res"
+Active = true
+
+[node name="Open FileDialog" parent="." instance=ExtResource("1_a3fmh")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4

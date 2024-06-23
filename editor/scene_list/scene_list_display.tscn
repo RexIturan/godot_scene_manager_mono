@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdmupkwxtb1j7"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_list/SceneListDisplay.cs" id="1_k10m2"]
+[ext_resource type="PackedScene" uid="uid://bnskdouq07hnr" path="res://addons/scene_manager_mono/editor/scene_list/scene_list_item.tscn" id="2_8ubxh"]
+
+[node name="SceneList" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_k10m2")
+sceneItemPrefab = ExtResource("2_8ubxh")

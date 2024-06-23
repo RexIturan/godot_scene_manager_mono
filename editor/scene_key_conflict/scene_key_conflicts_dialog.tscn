@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://d0rq2yi7rvpnh"]
+
+[ext_resource type="PackedScene" uid="uid://cdmupkwxtb1j7" path="res://addons/scene_manager_mono/editor/scene_list/scene_list_display.tscn" id="1_ij5bf"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_key_conflict/SceneKeyConflictsDialog.cs" id="1_tffpp"]
+
+[node name="Scene Key Conflicts Dialog" type="AcceptDialog"]
+title = "Scene Key Conflicts"
+initial_position = 2
+size = Vector2i(300, 300)
+visible = true
+ok_button_text = "Close"
+script = ExtResource("1_tffpp")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 296.0
+offset_bottom = 258.0
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="SceneList" parent="MarginContainer" instance=ExtResource("1_ij5bf")]
+unique_name_in_owner = true
+layout_mode = 2

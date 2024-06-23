@@ -1,0 +1,226 @@
+[gd_scene load_steps=11 format=3 uid="uid://tfibcfsvkqco"]
+
+[ext_resource type="Texture2D" uid="uid://c3x3qec0spake" path="res://addons/scene_manager_mono/icons/New.svg" id="1_52unq"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene/SceneDataEditor.cs" id="1_117ss"]
+[ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="1_vf3l2"]
+[ext_resource type="Texture2D" uid="uid://cychmwma7de0d" path="res://addons/scene_manager_mono/icons/GuiVisibilityHidden.svg" id="2_kflcp"]
+[ext_resource type="Texture2D" uid="uid://by3tbb6xnp50i" path="res://addons/scene_manager_mono/icons/Remove.svg" id="3_86kfa"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/CollapseButton.cs" id="3_r5ka8"]
+[ext_resource type="Texture2D" uid="uid://bi3celtggigrx" path="res://addons/scene_manager_mono/icons/GuiVisibilityVisible.svg" id="4_i356g"]
+[ext_resource type="Texture2D" uid="uid://dfnrv6eee5ea5" path="res://addons/scene_manager_mono/icons/Save.svg" id="4_wxwwc"]
+[ext_resource type="Texture2D" uid="uid://rkmxrnyjmxwn" path="res://addons/scene_manager_mono/icons/FileBroken.svg" id="5_smst5"]
+[ext_resource type="PackedScene" uid="uid://bmundmi73u6bh" path="res://addons/scene_manager_mono/editor/tags/tag_select.tscn" id="10_w6wq1"]
+
+[node name="SceneData Editor" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_117ss")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Scene Actions" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Create New" type="Button" parent="VBoxContainer/Scene Actions"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("1_52unq")
+icon_alignment = 1
+
+[node name="Save" type="Button" parent="VBoxContainer/Scene Actions"]
+visible = false
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("4_wxwwc")
+icon_alignment = 1
+
+[node name="Delete" type="Button" parent="VBoxContainer/Scene Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("3_86kfa")
+icon_alignment = 1
+
+[node name="Resource Row" type="HBoxContainer" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Resource Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="VBoxContainer/Resource Row/HBoxContainer"]
+layout_mode = 2
+text = "Resource Path"
+
+[node name="LineEdit" type="LineEdit" parent="VBoxContainer/Resource Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+editable = false
+
+[node name="Scene Path Row" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Scene Path Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="VBoxContainer/Scene Path Row/HBoxContainer"]
+layout_mode = 2
+text = "Scene Path"
+
+[node name="Path File Input" parent="VBoxContainer/Scene Path Row" instance=ExtResource("1_vf3l2")]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+
+[node name="Key Row" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Left Box" type="HBoxContainer" parent="VBoxContainer/Key Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="VBoxContainer/Key Row/Left Box"]
+layout_mode = 2
+text = "Key: "
+
+[node name="Right Box" type="HBoxContainer" parent="VBoxContainer/Key Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Key LineEdit" type="LineEdit" parent="VBoxContainer/Key Row/Right Box"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "loadingScreen"
+
+[node name="Button" type="Button" parent="VBoxContainer/Key Row/Right Box"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("5_smst5")
+icon_alignment = 1
+
+[node name="Name Row" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Name Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="VBoxContainer/Name Row/HBoxContainer"]
+layout_mode = 2
+text = "DisplayName: "
+
+[node name="DisplayName LineEdit" type="LineEdit" parent="VBoxContainer/Name Row"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Loading Screen"
+
+[node name="Description Row" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Description Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/Description Row/VBoxContainer"]
+layout_mode = 2
+text = "Description:"
+
+[node name="Description TextEdit" type="TextEdit" parent="VBoxContainer/Description Row/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+text = "lk,.kawdawdjawdlknjal.kwd
+awdawd
+awdawdawd"
+placeholder_text = "Placeholder"
+
+[node name="Image Row" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Image Row"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.5
+
+[node name="Label" type="Label" parent="VBoxContainer/Image Row/VBoxContainer/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Image Path:"
+
+[node name="Image File Input" parent="VBoxContainer/Image Row/VBoxContainer/HBoxContainer" instance=ExtResource("1_vf3l2")]
+unique_name_in_owner = true
+layout_mode = 2
+fileType = 1
+
+[node name="Control" type="Control" parent="VBoxContainer/Image Row/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "Preview Image
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+alignment = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer/HBoxContainer/HBoxContainer" node_paths=PackedStringArray("target")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+icon = ExtResource("4_i356g")
+icon_alignment = 1
+script = ExtResource("3_r5ka8")
+target = NodePath("../../../Container")
+activeIcon = ExtResource("4_i356g")
+inactiveIcon = ExtResource("2_kflcp")
+
+[node name="Container" type="HBoxContainer" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+alignment = 1
+
+[node name="Image TextureRect" type="TextureRect" parent="VBoxContainer/Image Row/VBoxContainer/VBoxContainer/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("5_smst5")
+expand_mode = 3
+stretch_mode = 5
+
+[node name="TagSelect" parent="VBoxContainer" instance=ExtResource("10_w6wq1")]
+unique_name_in_owner = true
+layout_mode = 2
+useScene = true

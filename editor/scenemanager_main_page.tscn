@@ -1,0 +1,284 @@
+[gd_scene load_steps=14 format=3 uid="uid://4pbkw4qoxgk8"]
+
+[ext_resource type="PackedScene" uid="uid://0d8urmbgw57v" path="res://addons/scene_manager_mono/editor/resource_settings/resource_setting_section.tscn" id="1_gbun4"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/ToggleShowDeleteButton.cs" id="5_fe3d8"]
+[ext_resource type="PackedScene" uid="uid://dkryb2qu7s8dq" path="res://addons/scene_manager_mono/editor/scene/add_new_scene.tscn" id="6_1885s"]
+[ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="6_kia6x"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_group/SceneGroupTabContainer.cs" id="7_sidjj"]
+[ext_resource type="PackedScene" uid="uid://bjwr78tsb2cif" path="res://addons/scene_manager_mono/editor/directory/directory_filter.tscn" id="8_5fbua"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/directory/AutomaticSceneImport.cs" id="8_ajlc2"]
+[ext_resource type="PackedScene" uid="uid://clb815r4rhj5q" path="res://addons/scene_manager_mono/editor/scene_group/add_scene_group.tscn" id="8_xo8wt"]
+[ext_resource type="PackedScene" uid="uid://d3l4aa0o7omkw" path="res://addons/scene_manager_mono/editor/scene_group/scene_group_list.tscn" id="9_8skrm"]
+[ext_resource type="PackedScene" uid="uid://kdr6rsgqk2l0" path="res://addons/scene_manager_mono/editor/scene_group/scene_group_page.tscn" id="9_c0afy"]
+[ext_resource type="PackedScene" uid="uid://cg7gkg4mxsabs" path="res://addons/scene_manager_mono/editor/tags/add_tag.tscn" id="12_kfi4t"]
+[ext_resource type="PackedScene" uid="uid://dv6bwafs62ir2" path="res://addons/scene_manager_mono/editor/tags/tag_list.tscn" id="13_k67cu"]
+[ext_resource type="PackedScene" uid="uid://bcararg0gbnu2" path="res://addons/scene_manager_mono/editor/scene_list/grouped_scene_list.tscn" id="15_ckold"]
+
+[node name="main page" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TabContainer" type="TabContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Settings" type="VBoxContainer" parent="TabContainer"]
+layout_mode = 2
+
+[node name="resource setting section" parent="TabContainer/Settings" instance=ExtResource("1_gbun4")]
+layout_mode = 2
+
+[node name="SceneSettings" type="MarginContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+
+[node name="Panel" type="Panel" parent="TabContainer/Settings/SceneSettings"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Settings/SceneSettings"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Settings/SceneSettings/VBoxContainer"]
+layout_mode = 2
+text = "Scene Settings:"
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Settings/SceneSettings/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/SceneSettings/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="Scene Settings" type="HBoxContainer" parent="TabContainer/Settings/SceneSettings/VBoxContainer"]
+layout_mode = 2
+
+[node name="CheckButton" type="CheckButton" parent="TabContainer/Settings/SceneSettings/VBoxContainer/Scene Settings"]
+layout_mode = 2
+text = "show delete"
+script = ExtResource("5_fe3d8")
+
+[node name="BoxContainer" type="VBoxContainer" parent="TabContainer/Settings"]
+layout_mode = 2
+
+[node name="Automatic Import" type="MarginContainer" parent="TabContainer/Settings/BoxContainer"]
+layout_mode = 2
+script = ExtResource("8_ajlc2")
+
+[node name="Panel" type="Panel" parent="TabContainer/Settings/BoxContainer/Automatic Import"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2"]
+layout_mode = 2
+
+[node name="Controls" type="HBoxContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls"]
+layout_mode = 2
+text = "Auto Import
+"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer"]
+layout_mode = 2
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Reset" type="Button" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset"
+
+[node name="Generate" type="Button" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Controls/HBoxContainer/MarginContainer2/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Generate
+"
+
+[node name="Divider" type="MarginContainer" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_right = 4
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer/Divider"]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="Include Directory Filter" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer" instance=ExtResource("8_5fbua")]
+unique_name_in_owner = true
+layout_mode = 2
+LabelText = "Include"
+
+[node name="Exclude Directory Filter" parent="TabContainer/Settings/BoxContainer/Automatic Import/MarginContainer2/VBoxContainer" instance=ExtResource("8_5fbua")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+LabelText = "Exclude"
+
+[node name="Scenes" type="VBoxContainer" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Create Scene Data" type="HBoxContainer" parent="TabContainer/Scenes"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Create Scene Data"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Scenes/Create Scene Data/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Create Scene Data/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TabContainer/Scenes/Create Scene Data/MarginContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Scenes/Create Scene Data/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "Group:"
+
+[node name="LineEdit" type="LineEdit" parent="TabContainer/Scenes/Create Scene Data/MarginContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Create" type="Button" parent="TabContainer/Scenes/Create Scene Data/MarginContainer/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Load List"
+icon = ExtResource("6_kia6x")
+icon_alignment = 1
+
+[node name="Add New Scene" parent="TabContainer/Scenes/Create Scene Data/MarginContainer/MarginContainer" instance=ExtResource("6_1885s")]
+layout_mode = 2
+
+[node name="Scenes Tabs" type="VBoxContainer" parent="TabContainer/Scenes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Scenes Tabs"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer"]
+layout_mode = 2
+color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="TabContainer" type="TabContainer" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer"]
+layout_mode = 2
+script = ExtResource("7_sidjj")
+sceneGroupPagePrefab = ExtResource("9_c0afy")
+
+[node name="All" type="Control" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer/TabContainer"]
+layout_mode = 2
+
+[node name="Grouped Scene List" parent="TabContainer/Scenes/Scenes Tabs/MarginContainer/MarginContainer/TabContainer/All" instance=ExtResource("15_ckold")]
+layout_mode = 1
+
+[node name="Groups" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Groups" type="VBoxContainer" parent="TabContainer/Groups"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Groups/Groups"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ColorRect" type="ColorRect" parent="TabContainer/Groups/Groups/MarginContainer"]
+visible = false
+layout_mode = 2
+color = Color(0.129412, 0.14902, 0.180392, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="TabContainer/Groups/Groups/MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Groups/Groups/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="AddSceneGroup" parent="TabContainer/Groups/Groups/MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource("8_xo8wt")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TabContainer/Groups/Groups/MarginContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Group:"
+
+[node name="Scene Group List" parent="TabContainer/Groups/Groups/MarginContainer/MarginContainer/VBoxContainer" instance=ExtResource("9_8skrm")]
+layout_mode = 2
+
+[node name="Tags" type="Control" parent="TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Tags"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 62.0
+grow_horizontal = 2
+
+[node name="Add Tag" parent="TabContainer/Tags/VBoxContainer" instance=ExtResource("12_kfi4t")]
+layout_mode = 2
+
+[node name="Tag List" parent="TabContainer/Tags/VBoxContainer" instance=ExtResource("13_k67cu")]
+layout_mode = 2

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuhc3kunc6ov2"]
+
+[ext_resource type="Texture2D" uid="uid://dulfae3xtpitx" path="res://addons/scene_manager_mono/icons/FileDialog.svg" id="1_jwjry"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/SceneFileDialog.cs" id="2_qqsmx"]
+
+[node name="Open FileDialog" type="Button" node_paths=PackedStringArray("fileDialog")]
+custom_minimum_size = Vector2(32, 32)
+icon = ExtResource("1_jwjry")
+icon_alignment = 1
+script = ExtResource("2_qqsmx")
+fileDialog = NodePath("FileDialog")
+
+[node name="FileDialog" type="FileDialog" parent="."]
+unique_name_in_owner = true
+title = "Open a File"
+size = Vector2i(392, 162)
+ok_button_text = "Open"
+file_mode = 0
+filters = PackedStringArray("*.tscn, *.scn, *.res ; Scene Files", "*.tscn, *.scn, *.res ; Scene Files", "*.tscn, *.scn, *.res ; Scene Files")

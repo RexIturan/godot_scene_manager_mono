@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=3 uid="uid://dkryb2qu7s8dq"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene/AddNewScene.cs" id="1_f7db8"]
+[ext_resource type="StyleBox" uid="uid://cnqfy686ckfa0" path="res://addons/scene_manager_mono/theme/invalid_stylebox.tres" id="2_tlet7"]
+[ext_resource type="StyleBox" uid="uid://dae1i7y200ufk" path="res://addons/scene_manager_mono/theme/invalid_stylebox_readonly.tres" id="3_7o0g6"]
+[ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="4_57pqk"]
+[ext_resource type="Texture2D" uid="uid://dophe0r811u48" path="res://addons/scene_manager_mono/icons/Clear.svg" id="5_77jnm"]
+[ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="5_dqfv4"]
+
+[node name="Add New Scene" type="HBoxContainer" node_paths=PackedStringArray("fileInput", "keyLineEdit", "clearButton", "addButton")]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+script = ExtResource("1_f7db8")
+fileInput = NodePath("HBoxContainer2/File Input")
+keyLineEdit = NodePath("HBoxContainer/New Key Input")
+clearButton = NodePath("HBoxContainer2/Clear")
+addButton = NodePath("HBoxContainer2/Add")
+invalidLineEditTheme = ExtResource("2_tlet7")
+invalidLineEditReadOnlyTheme = ExtResource("3_7o0g6")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="New Key Input" type="LineEdit" parent="HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "New Key"
+clear_button_enabled = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="File Input" parent="HBoxContainer2" instance=ExtResource("4_57pqk")]
+unique_name_in_owner = true
+layout_mode = 2
+editable = false
+invalidLineEditTheme = null
+invalidLineEditReadOnlyTheme = null
+
+[node name="Clear" type="Button" parent="HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+icon = ExtResource("5_77jnm")
+icon_alignment = 1
+
+[node name="Add" type="Button" parent="HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+icon = ExtResource("5_dqfv4")
+icon_alignment = 1

@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://c03keuxaytfxe"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/quick_access/SceneQuickAccessItem.cs" id="1_kxl01"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/quick_access/OpenErrorDialog.cs" id="3_3hflg"]
+[ext_resource type="Texture2D" uid="uid://cg8edp36u07wg" path="res://addons/scene_manager_mono/icons/NodeWarning.svg" id="3_oqo8t"]
+[ext_resource type="PackedScene" uid="uid://d0rq2yi7rvpnh" path="res://addons/scene_manager_mono/editor/scene_key_conflict/scene_key_conflicts_dialog.tscn" id="4_8in4j"]
+[ext_resource type="Texture2D" uid="uid://bdg4t58gbllna" path="res://addons/scene_manager_mono/icons/Edit.svg" id="4_ht2o8"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene/OpenSceneDataEditWindow.cs" id="5_g73cq"]
+[ext_resource type="PackedScene" uid="uid://bic3ck3afnxp6" path="res://addons/scene_manager_mono/editor/scene/scene_data_window.tscn" id="6_4ske8"]
+[ext_resource type="Texture2D" uid="uid://lu5op0hlm165" path="res://addons/scene_manager_mono/icons/ListSelect.svg" id="8_f8ebp"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/ShowInFileSystem.cs" id="9_hbgj3"]
+
+[node name="Scene Item Quick Access" type="HBoxContainer" node_paths=PackedStringArray("label", "openButton", "errorButton", "editButton", "showInFileSystem")]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kxl01")
+label = NodePath("Open/HBoxContainer/HBoxContainer/Scene Key")
+openButton = NodePath("Open")
+errorButton = NodePath("Open/HBoxContainer/Error")
+editButton = NodePath("HBoxContainer2/Edit")
+showInFileSystem = NodePath("HBoxContainer2/ShowInFileSystem")
+
+[node name="Open" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+tooltip_text = "Open Scene"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Open"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Open/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Scene Key" type="Label" parent="Open/HBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Error" type="Button" parent="Open/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(32, 2)
+layout_mode = 2
+tooltip_text = "Open Confilct Window"
+icon = ExtResource("3_oqo8t")
+flat = true
+icon_alignment = 1
+script = ExtResource("3_3hflg")
+dialogPrefab = ExtResource("4_8in4j")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 2
+
+[node name="ShowInFileSystem" type="Button" parent="HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Show In FileSystem"
+icon = ExtResource("8_f8ebp")
+icon_alignment = 1
+script = ExtResource("9_hbgj3")
+
+[node name="Edit" type="Button" parent="HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Open Edit Window"
+icon = ExtResource("4_ht2o8")
+icon_alignment = 1
+script = ExtResource("5_g73cq")
+SceneDataEditWiondowPrefab = ExtResource("6_4ske8")

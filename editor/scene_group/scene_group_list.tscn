@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3l4aa0o7omkw"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_group/SceneGroupList.cs" id="1_7gitf"]
+[ext_resource type="PackedScene" uid="uid://budagfp5ep4nj" path="res://addons/scene_manager_mono/editor/scene_group/scene_group_item.tscn" id="2_gcu62"]
+
+[node name="Scene Group List" type="VBoxContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+script = ExtResource("1_7gitf")
+sceneGroupPrefab = ExtResource("2_gcu62")
+
+[node name="Scene Group Item" parent="." instance_placeholder="res://addons/SceneManagerCSharp/editor/scene_group/scene_group_item.tscn"]
+layout_mode = 2

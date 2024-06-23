@@ -1,0 +1,83 @@
+[gd_scene load_steps=8 format=3 uid="uid://bjwr78tsb2cif"]
+
+[ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="1_l6wid"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/directory/DirectoryFilter.cs" id="1_rb5ea"]
+[ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="2_ptr6i"]
+[ext_resource type="Texture2D" uid="uid://bi3celtggigrx" path="res://addons/scene_manager_mono/icons/GuiVisibilityVisible.svg" id="3_5ftta"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/util/CollapseButton.cs" id="4_tk8cv"]
+[ext_resource type="Texture2D" uid="uid://cychmwma7de0d" path="res://addons/scene_manager_mono/icons/GuiVisibilityHidden.svg" id="5_d2egx"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/directory/DirectoryList.cs" id="7_cg138"]
+
+[node name="Directory Filter" type="MarginContainer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 141.0
+grow_horizontal = 2
+script = ExtResource("1_rb5ea")
+LabelText = "Directory Filter"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Add Directory" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Add Directory"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Directory Filter"
+
+[node name="File Input" parent="MarginContainer/VBoxContainer/HBoxContainer/Add Directory" instance=ExtResource("1_l6wid")]
+unique_name_in_owner = true
+layout_mode = 2
+fileType = 4
+
+[node name="Add" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Add Directory"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("2_ptr6i")
+icon_alignment = 1
+
+[node name="Utility Controls" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Toggle List Button" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/Utility Controls" node_paths=PackedStringArray("target")]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+icon = ExtResource("3_5ftta")
+icon_alignment = 1
+script = ExtResource("4_tk8cv")
+target = NodePath("../../../ScrollContainer")
+activeIcon = ExtResource("3_5ftta")
+inactiveIcon = ExtResource("5_d2egx")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="Directory List" type="VBoxContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("7_cg138")
+
+[node name="Directory Item" parent="MarginContainer/VBoxContainer/ScrollContainer/Directory List" instance_placeholder="res://addons/SceneManagerCSharp/editor/directory/directory_item.tscn"]
+layout_mode = 2

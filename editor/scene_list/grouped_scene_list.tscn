@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcararg0gbnu2"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_list/GroupedSceneList.cs" id="1_lsam3"]
+
+[node name="ScrollContainer" type="ScrollContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Grouped Scene List" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_lsam3")

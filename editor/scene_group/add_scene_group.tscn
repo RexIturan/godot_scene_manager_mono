@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://clb815r4rhj5q"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_group/AddSceneGroup.cs" id="1_xsk4h"]
+[ext_resource type="Texture2D" uid="uid://c37a0ahve8syw" path="res://addons/scene_manager_mono/icons/Add.svg" id="2_320bf"]
+
+[node name="AddSceneGroup" type="HBoxContainer"]
+script = ExtResource("1_xsk4h")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Create" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+tooltip_text = "Load List"
+icon = ExtResource("2_320bf")
+icon_alignment = 1

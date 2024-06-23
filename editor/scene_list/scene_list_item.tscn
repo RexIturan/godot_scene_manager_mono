@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://bnskdouq07hnr"]
+
+[ext_resource type="Texture2D" uid="uid://by3tbb6xnp50i" path="res://addons/scene_manager_mono/icons/Remove.svg" id="1_1lckf"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_list/SceneItem.cs" id="1_sp34y"]
+[ext_resource type="StyleBox" uid="uid://cnqfy686ckfa0" path="res://addons/scene_manager_mono/theme/invalid_stylebox.tres" id="2_nkc6f"]
+[ext_resource type="StyleBox" uid="uid://dae1i7y200ufk" path="res://addons/scene_manager_mono/theme/invalid_stylebox_readonly.tres" id="3_0osmx"]
+[ext_resource type="PackedScene" uid="uid://bej6tarrcvnaw" path="res://addons/scene_manager_mono/editor/util/file_input.tscn" id="5_wv167"]
+[ext_resource type="Texture2D" uid="uid://bdg4t58gbllna" path="res://addons/scene_manager_mono/icons/Edit.svg" id="6_qlcat"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene_list/SeceneItemActionMenu.cs" id="7_ms6ac"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/scene/OpenSceneDataEditWindow.cs" id="7_qx7u8"]
+[ext_resource type="PackedScene" uid="uid://bic3ck3afnxp6" path="res://addons/scene_manager_mono/editor/scene/scene_data_window.tscn" id="8_i5d7d"]
+
+[node name="Scene Item" type="HBoxContainer" node_paths=PackedStringArray("keyInput", "fileInput", "delete", "edit")]
+custom_minimum_size = Vector2(0, 28)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 29.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+script = ExtResource("1_sp34y")
+keyInput = NodePath("key")
+fileInput = NodePath("File Input")
+delete = NodePath("delete")
+edit = NodePath("edit")
+invalidLineEditTheme = ExtResource("2_nkc6f")
+invalidLineEditReadOnlyTheme = ExtResource("3_0osmx")
+
+[node name="key" type="LineEdit" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "Scene Key"
+
+[node name="File Input" parent="." instance=ExtResource("5_wv167")]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 28)
+layout_mode = 2
+
+[node name="MenuButton" type="OptionButton" parent="."]
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+icon_alignment = 1
+item_count = 2
+selected = 1
+popup/item_0/text = "None"
+popup/item_0/id = 0
+popup/item_1/text = "test"
+popup/item_1/id = 1
+script = ExtResource("7_ms6ac")
+
+[node name="edit" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+icon = ExtResource("6_qlcat")
+icon_alignment = 1
+script = ExtResource("7_qx7u8")
+SceneDataEditWiondowPrefab = ExtResource("8_i5d7d")
+
+[node name="delete" type="Button" parent="."]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(29, 29)
+layout_mode = 2
+icon = ExtResource("1_1lckf")
+icon_alignment = 1

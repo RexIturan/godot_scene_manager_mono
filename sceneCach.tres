@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SceneListCache" load_steps=2 format=3 uid="uid://brnm8g5c2fyvh"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/data/SceneListCache.cs" id="2_l02db"]
+
+[resource]
+script = ExtResource("2_l02db")
+SceneDict = {}

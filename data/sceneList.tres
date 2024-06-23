@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="SceneListCache" load_steps=5 format=3 uid="uid://dh0j11xbukryn"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/data/SceneListCache.cs" id="1_hmgx1"]
+[ext_resource type="Script" path="res://addons/scene_manager_mono/data/SceneGroupData.cs" id="2_o5hjw"]
+
+[sub_resource type="Resource" id="Resource_osvf6"]
+script = ExtResource("2_o5hjw")
+name = "hidden"
+texture = ""
+sceneIndexList = []
+tags = ["test"]
+
+[sub_resource type="Resource" id="Resource_s87o1"]
+script = ExtResource("2_o5hjw")
+name = "Quest"
+texture = ""
+sceneIndexList = []
+tags = ["debug only"]
+
+[resource]
+script = ExtResource("1_hmgx1")
+SceneDict = {}
+sceneGroups = [SubResource("Resource_osvf6"), SubResource("Resource_s87o1")]
+sceneDatas = []
+groupTags = ["debug only", "test"]
+sceneTags = ["debug only", "test"]
+unusedTags = []
+excludeDirs = []
+includeDirs = ["res://demo"]

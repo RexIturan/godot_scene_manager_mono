@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://20fgxipmm3pa"]
+
+[ext_resource type="Script" path="res://addons/scene_manager_mono/editor/SceneManagerWindow.cs" id="1_pr6vg"]
+[ext_resource type="PackedScene" uid="uid://4pbkw4qoxgk8" path="res://addons/scene_manager_mono/editor/scenemanager_main_page.tscn" id="2_m3gme"]
+
+[node name="SceneManager Window" type="Window"]
+title = "Scene Manager"
+initial_position = 2
+size = Vector2i(500, 600)
+wrap_controls = true
+transient = true
+min_size = Vector2i(500, 500)
+script = ExtResource("1_pr6vg")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.133333, 0.160784, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Panel" type="ColorRect" parent="MarginContainer"]
+layout_mode = 2
+color = Color(0.211765, 0.239216, 0.290196, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="main page" parent="MarginContainer/MarginContainer" instance=ExtResource("2_m3gme")]
+layout_mode = 2

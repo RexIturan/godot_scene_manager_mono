@@ -79,5 +79,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("7_cg138")
 
-[node name="Directory Item" parent="MarginContainer/VBoxContainer/ScrollContainer/Directory List" instance_placeholder="res://addons/SceneManagerCSharp/editor/directory/directory_item.tscn"]
+[node name="Directory Item" parent="MarginContainer/VBoxContainer/ScrollContainer/Directory List" instance_placeholder="res://addons/scene_manager_mono/editor/directory/directory_item.tscn"]
 layout_mode = 2
+alignment = 1

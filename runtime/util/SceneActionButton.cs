@@ -1,5 +1,6 @@
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono;
+
+namespace SceneManagerMono.Runtime.Util;
 
 public partial class SceneActionButton : Button {
     [Export] private SceneAction action;

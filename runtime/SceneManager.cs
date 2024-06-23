@@ -6,6 +6,8 @@ using Godot;
 using SceneManagerC.Addons.SceneManagerMono;
 using Array = Godot.Collections.Array;
 
+namespace SceneManagerMono.Runtime;
+
 public partial class SceneManager : Node {
     public struct Options {
         public bool addToHistory;

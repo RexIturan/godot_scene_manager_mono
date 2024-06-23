@@ -1,4 +1,4 @@
-﻿namespace SceneManagerC.Addons.SceneManagerMono; 
+﻿namespace SceneManagerMono.Runtime;
 
 public enum SceneAction {
     NULL,

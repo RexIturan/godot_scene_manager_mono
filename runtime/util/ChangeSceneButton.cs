@@ -1,5 +1,7 @@
 using Godot;
 
+namespace SceneManagerMono.Runtime.Util;
+
 public partial class ChangeSceneButton : Button {
     [Export] private bool loadAsync = false;
     [Export] private string sceneKey = "";

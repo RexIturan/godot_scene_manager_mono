@@ -3,7 +3,7 @@ using Godot.Collections;
 
 [Tool]
 public static class SceneManagerSettings {
-    public const string SETTINGS_PROPERTY_NAME = "scene_manager_csharp/scenes/scenes_path";
+    public const string SETTINGS_PROPERTY_NAME = "scene_manager_mono/scenes/scenes_path";
     public const string DEFAULT_PATH_TO_SCENE_LIST = "res://addons/scene_manager_mono/data/sceneList.tres";
     
     ///// Public Functions /////

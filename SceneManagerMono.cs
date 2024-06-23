@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono;
+
 [Tool]
 public partial class SceneManagerMono : EditorPlugin {
 	private SceneManagerEditor sceneManagerEditor;

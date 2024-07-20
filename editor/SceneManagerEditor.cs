@@ -13,8 +13,29 @@ namespace SceneManagerMono.Editor;
 
 [Tool]
 public partial class SceneManagerEditor : Node {
+    #region Singelton
+
     public static SceneManagerEditor Instance;
-    
+
+    public SceneManagerEditor() {
+        if (Instance is null) {
+            Instance = this;
+        } else {
+            QueueFree();
+        }
+    }
+
+    protected override void Dispose(bool disposing) {
+        base.Dispose(disposing);
+        if (disposing) {
+            if (Instance == this) {
+                Instance = null;
+            }
+        }
+    }
+
+    #endregion
+
     private SceneListCache sceneListCache;
 
     private List<SceneDataItem> sceneDataList = new();
@@ -26,12 +47,16 @@ public partial class SceneManagerEditor : Node {
     private List<SceneDataTag> tags = new();
     public IReadOnlyList<SceneDataTag> TagList => tags.AsReadOnly();
 
+    private bool hasChanges = false;
+    
+    ///// Properties /////
+    
     private List<string> _excludeDirs = new List<string>();
     public List<string> ExcludeDirs {
         get => _excludeDirs;
         set {
             _excludeDirs = value;
-            EmitSignal(SignalName.Changed);
+            HandleOnChange();
         }
     }
 
@@ -40,10 +65,10 @@ public partial class SceneManagerEditor : Node {
         get => _includeDirs;
         set {
             _includeDirs = value;
-            EmitSignal(SignalName.Changed);
+            HandleOnChange();
         }
     }
-    
+
     // public Godot.Collections.Dictionary<string, string> SceneKeyPathDict => sceneListCache.SceneDict;
     //todo check if valid data
     public bool HasValidData => sceneListCache is not null;
@@ -63,7 +88,7 @@ public partial class SceneManagerEditor : Node {
         get {
             var ungrouped = new List<SceneDataItem>();
             var grouped = new HashSet<int>();
-            
+
             foreach (var group in SceneDataGroupList) {
                 foreach (var sceneIndex in group.scenes) {
                     grouped.Add(sceneIndex);
@@ -74,10 +99,10 @@ public partial class SceneManagerEditor : Node {
                 if (grouped.Contains(i)) {
                     continue;
                 }
-                
+
                 ungrouped.Add(SceneDataItems[i]);
             }
-            
+
             return ungrouped;
         }
     }
@@ -92,23 +117,6 @@ public partial class SceneManagerEditor : Node {
     [Signal] public delegate void ShowSceneDeleteChangedEventHandler(bool newValue);
     
     // ##### Godot Functions #####
-    
-    public override void _EnterTree() {
-        base._EnterTree();
-        if (Instance is null) {
-            Instance = this;
-        }
-        else {
-            QueueFree();
-        }
-    }
-
-    public override void _ExitTree() {
-        base._ExitTree();
-        if (Instance == this) {
-            Instance = null;    
-        }
-    }
 
     public override void _Ready() {
         base._Ready();
@@ -123,16 +131,17 @@ public partial class SceneManagerEditor : Node {
     public void CreateNewResource(string path) {
         sceneListCache = new SceneListCache();
         SceneManagerSettings.SetSceneListPath(path);
+        GD.Print("[SceneManagerEditor] CreateNewResource Save");
         ResourceSaver.Save(sceneListCache, SceneManagerSettings.GetSceneListPath());
 
         Clear();
-        EmitSignal(SignalName.Changed);
-        EmitSignal(SignalName.Saved);
+        HandleOnChange();
+        HandleOnSave();
     }
 
     public void ChangeResource(string path) {
         SceneManagerSettings.SetSceneListPath(path);
-        
+
         if (Load()) {
             InitData();
         }
@@ -147,30 +156,34 @@ public partial class SceneManagerEditor : Node {
     }
 
     public void Save() {
-        Debug.Assert(sceneListCache is not null, "ScenemanagerEditor Save with null resource");
+        if (!hasChanges) return;
         
+        Debug.Assert(sceneListCache is not null, "[SceneManagerEditor] Save with null resource");
+
         sceneListCache ??= new SceneListCache();
         sceneListCache.InitFromList(sceneDataList, sceneDataGroups, tags, ExcludeDirs, IncludeDirs);
 
+        GD.Print("[SceneManagerEditor] Save ResourceSaver.Save");
         ResourceSaver.Save(sceneListCache, SceneManagerSettings.GetSceneListPath());
-        EmitSignal(SignalName.Saved);
+        HandleOnSave();
     }
-    
+
     public bool Load() {
-        GD.Print("Load SceneManager Resource");
-        
+        GD.Print("[SceneManagerEditor] Try Load");
+
         var path = SceneManagerSettings.GetSceneListPath();
         if (FileAccess.FileExists(path)) {
-            sceneListCache = ResourceLoader.Load<SceneListCache>(path, null, ResourceLoader.CacheMode.Replace);
-            GD.Print("Load SceneManager Resource Successful!");
+            GD.Print("[SceneManagerEditor] Load");
+            sceneListCache =
+                ResourceLoader.Load<SceneListCache>(path, null, ResourceLoader.CacheMode.Replace);
+            GD.Print("[SceneManagerEditor] Load successful!");
             return true;
         }
-        
+
         return false;
     }
 
     public void InitData() {
-
         InitSceneData();
 
         InitSceneGroup();
@@ -181,36 +194,34 @@ public partial class SceneManagerEditor : Node {
         IncludeDirs = sceneListCache.includeDirs.ToList();
         //todo validate & clean up group.scenes && scene.tags && group.tags
 
-        EmitSignal(SignalName.Changed);
-        EmitSignal(SignalName.Saved);
+        HandleOnChange();
+        HandleOnSave();
     }
-    
+
     public List<SceneDataItem> GetSceneDataWithDuplicateKeys() {
         return duplicateSceneDataKeys;
     }
-    
+
     public void ValidateSceneDataKeys() {
         duplicateSceneDataKeys.Clear();
-        
+
         //todo extract into helper maybe cache?
         var keyLevelDict = new System.Collections.Generic.Dictionary<string, List<int>>();
         foreach (var item in sceneDataList) {
             if (keyLevelDict.ContainsKey(item.key)) {
                 keyLevelDict[item.key].Add(item.index);
-            }
-            else {
-                keyLevelDict.Add(item.key, new List<int>() { item.index });
+            } else {
+                keyLevelDict.Add(item.key, new List<int>() {item.index});
             }
         }
-        
+
         foreach (var item in keyLevelDict) {
             if (item.Value.Count > 1) {
                 foreach (var index in item.Value) {
                     duplicateSceneDataKeys.Add(sceneDataList[index]);
                     SetDuplicate(index, true);
                 }
-            }
-            else {
+            } else {
                 SetDuplicate(item.Value[0], false);
             }
         }
@@ -222,48 +233,48 @@ public partial class SceneManagerEditor : Node {
         sceneDataList[index] = item;
 
         ValidateSceneDataKeys();
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void SetScenePath(int index, string path) {
         var item = sceneDataList[index];
         item.path = path;
         sceneDataList[index] = item;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
 
     public void SetSceneName(int index, string name) {
         var item = sceneDataList[index];
         item.name = name;
         sceneDataList[index] = item;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void SetSceneDescription(int index, string description) {
         var item = sceneDataList[index];
         item.description = description;
         sceneDataList[index] = item;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void SetSceneImage(int index, string imagePath) {
         var item = sceneDataList[index];
         item.imagePath = imagePath;
         sceneDataList[index] = item;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void SetSceneTags(int index, Array<string> newTags) {
         var item = sceneDataList[index];
         item.tags = newTags.ToList();
         sceneDataList[index] = item;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
 
     public void AddSceneData(string key, string path) {
@@ -272,11 +283,11 @@ public partial class SceneManagerEditor : Node {
             key = key,
             path = path
         });
-        
+
         ValidateSceneDataKeys();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     public void AddAllSceneData(List<Tuple<string, string>> toAdd) {
         foreach (var tuple in toAdd) {
             sceneDataList.Add(new SceneDataItem() {
@@ -285,29 +296,29 @@ public partial class SceneManagerEditor : Node {
                 path = tuple.Item2
             });
         }
-        
+
         ValidateSceneDataKeys();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     public void RequestDeleteScene(SceneDataItem sceneData, bool focusMainSceneManager = true) {
         var confimDialog = CreateConfirmDialog();
         confimDialog.Confirmed += () => {
             DeleteScene(sceneData);
             if (focusMainSceneManager) {
-                FocusMainSceneManagerWindow();    
+                FocusMainSceneManagerWindow();
             }
         };
         confimDialog.DialogText = $"Do you realy want to delete Scene: {sceneData.key}";
         EditorInterface.Singleton.PopupDialogCentered(confimDialog);
     }
-    
-    
+
+
     public void ForceDeleteScene(SceneDataItem found) {
         DeleteScene(found);
         FocusMainSceneManagerWindow();
     }
-    
+
     public void ForceDeleteAllScenes(List<SceneDataItem> toRemove) {
         foreach (var removeItem in toRemove) {
             sceneDataList.Remove(removeItem);
@@ -316,27 +327,28 @@ public partial class SceneManagerEditor : Node {
                 group.scenes.Remove(removeItem.index);
             }
         }
-        
+
         EmitSignal(SignalName.SceneDeleted);
         UpdateSceneDataIndices();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     public void CreateGroup(string groupName) {
         sceneDataGroups.Add(new SceneDataGroupItem() {
             name = groupName,
             index = sceneDataGroups.Count
         });
 
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
-    public void RequestDeleteGroup(SceneDataGroupItem groupData, bool focusMainSceneManager = true) {
+
+    public void RequestDeleteGroup(SceneDataGroupItem groupData,
+        bool focusMainSceneManager = true) {
         var confimDialog = CreateConfirmDialog();
         confimDialog.Confirmed += () => {
             DeleteGroup(groupData);
             if (focusMainSceneManager) {
-                FocusMainSceneManagerWindow();    
+                FocusMainSceneManagerWindow();
             }
         };
         confimDialog.DialogText = $"Do you realy want to delete Group: {groupData.name}";
@@ -345,7 +357,7 @@ public partial class SceneManagerEditor : Node {
 
     public void AddSceneToGroup(SceneDataItem sceneData, int groupIndex) {
         var index = sceneData.index;
-        
+
         //remove from other group
         foreach (var group in sceneDataGroups) {
             if (group.scenes.Contains(index)) {
@@ -354,12 +366,12 @@ public partial class SceneManagerEditor : Node {
         }
 
         sceneDataGroups[groupIndex].scenes.Add(index);
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     public void RemoveSceneFromGroup(SceneDataItem sceneData) {
         var index = sceneData.index;
-        
+
         //remove from other group
         foreach (var group in sceneDataGroups) {
             if (group.scenes.Contains(index)) {
@@ -367,22 +379,22 @@ public partial class SceneManagerEditor : Node {
             }
         }
 
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     public bool ValidTagName(string name) {
         return tags.All(tag => tag.name != name);
     }
-    
+
     public void AddTag(string name) {
         tags.Add(new SceneDataTag() {
             index = tags.Count,
             name = name,
         });
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void UpdateTag(int index, SceneDataTag newTag) {
         var oldTag = tags[index];
         if (oldTag != newTag) {
@@ -391,8 +403,7 @@ public partial class SceneManagerEditor : Node {
             if (oldTag.scene) {
                 if (newTag.scene) {
                     ReplaceSceneTag(oldTag.name, newTag.name);
-                }
-                else {
+                } else {
                     RemoveSceneTag(oldTag.name);
                 }
             }
@@ -400,22 +411,21 @@ public partial class SceneManagerEditor : Node {
             if (oldTag.group) {
                 if (newTag.group) {
                     ReplaceGroupTag(oldTag.name, newTag.name);
-                }
-                else {
+                } else {
                     RemoveGroupTag(oldTag.name);
                 }
             }
 
-            EmitSignal(SignalName.Changed);
+            HandleOnChange();
         }
     }
-    
+
     public void RequestDeleteTag(SceneDataTag tagData, bool focusMainSceneManager = true) {
         var confimDialog = CreateConfirmDialog();
         confimDialog.Confirmed += () => {
             DeleteTag(tagData);
             if (focusMainSceneManager) {
-                FocusMainSceneManagerWindow();    
+                FocusMainSceneManagerWindow();
             }
         };
         confimDialog.DialogText = $"Do you realy want to delete Group: {tagData.name}";
@@ -426,30 +436,42 @@ public partial class SceneManagerEditor : Node {
         var group = SceneDataGroupList[index];
         group.icon = imagePath;
         SceneDataGroupList[index] = group;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
 
     public void SetGroupName(int index, string newName) {
         var group = SceneDataGroupList[index];
         group.name = newName;
         SceneDataGroupList[index] = group;
-        
-        EmitSignal(SignalName.Changed);
+
+        HandleOnChange();
     }
-    
+
     public void SetGroupTags(int index, Array<string> newTags) {
         var group = SceneDataGroupList[index];
         group.tags = newTags.ToList();
         SceneDataGroupList[index] = group;
-        
+
+        HandleOnChange();
+    }
+
+    // ##### Private Functions #####
+
+    private void HandleOnChange() {
+        GD.Print("[SceneManagerEditor] OnChange");
+        hasChanges = true;
         EmitSignal(SignalName.Changed);
     }
     
-    // ##### Private Functions #####
-
+    private void HandleOnSave() {
+        GD.Print("[SceneManagerEditor] OnSave");
+        hasChanges = false;
+        EmitSignal(SignalName.Saved);
+    }
+    
     private void FocusMainSceneManagerWindow() {
-        var sceneDataEditWindows = 
+        var sceneDataEditWindows =
             EditorInterface.Singleton.GetBaseControl().GetNodes<SceneManagerWindow>();
 
         var first = sceneDataEditWindows.FirstOrDefault();
@@ -457,7 +479,7 @@ public partial class SceneManagerEditor : Node {
             first.GrabFocus();
         }
     }
-    
+
     private void InitSceneData() {
         var index = 0;
         sceneDataList.Clear();
@@ -467,7 +489,7 @@ public partial class SceneManagerEditor : Node {
             });
         }
     }
-    
+
     private void InitSceneGroup() {
         var index = 0;
         sceneDataGroups.Clear();
@@ -477,10 +499,10 @@ public partial class SceneManagerEditor : Node {
             });
         }
     }
-    
+
     private void InitSceneTags() {
         var tagDict = new System.Collections.Generic.Dictionary<string, SceneDataTag>();
-        
+
         foreach (var tag in sceneListCache.sceneTags) {
             tagDict.Add(tag, new SceneDataTag() {
                 name = tag,
@@ -492,12 +514,11 @@ public partial class SceneManagerEditor : Node {
             if (tagDict.TryGetValue(tag, out var tagData)) {
                 tagData.group = true;
                 tagDict[tag] = tagData;
-            }
-            else {
+            } else {
                 tagDict.Add(tag, new SceneDataTag() {
                     name = tag,
                     group = true
-                }); 
+                });
             }
         }
 
@@ -505,27 +526,26 @@ public partial class SceneManagerEditor : Node {
             if (tagDict.TryGetValue(tag, out var tagData)) {
                 tagData.group = true;
                 tagDict[tag] = tagData;
-            }
-            else {
+            } else {
                 tagDict.Add(tag, new SceneDataTag() {
                     name = tag,
-                }); 
+                });
             }
         }
-        
+
         tags = tagDict.Values.ToList();
         tagDict.Clear();
-        
+
         UpdateTagIndices();
     }
-    
+
     private void DeleteGroup(SceneDataGroupItem groupData) {
         var removeItem = sceneDataGroups[groupData.index];
         sceneDataGroups.Remove(removeItem);
 
         EmitSignal(SignalName.GroupDeleted);
         UpdateGroupDataIndices();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
 
     private void DeleteScene(SceneDataItem sceneData) {
@@ -535,30 +555,30 @@ public partial class SceneManagerEditor : Node {
         foreach (var group in sceneDataGroups) {
             group.scenes.Remove(removeItem.index);
         }
-        
+
         EmitSignal(SignalName.SceneDeleted);
         UpdateSceneDataIndices();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     private void DeleteTag(SceneDataTag tagData) {
         var removeItem = tags[tagData.index];
-        
+
         RemoveSceneTag(removeItem.name);
         RemoveGroupTag(removeItem.name);
-        
+
         tags.Remove(removeItem);
-        
+
         UpdateTagIndices();
-        EmitSignal(SignalName.Changed);
+        HandleOnChange();
     }
-    
+
     private void RemoveSceneTag(string oldTagName) {
         foreach (var scene in sceneDataList) {
             scene.tags.Remove(oldTagName);
         }
     }
-    
+
     private void RemoveGroupTag(string oldTagName) {
         foreach (var group in sceneDataGroups) {
             group.tags.Remove(oldTagName);
@@ -573,7 +593,7 @@ public partial class SceneManagerEditor : Node {
             }
         }
     }
-    
+
     private void ReplaceGroupTag(string oldTagName, string newTagName) {
         foreach (var group in sceneDataGroups) {
             if (group.tags.Contains(oldTagName)) {
@@ -582,14 +602,13 @@ public partial class SceneManagerEditor : Node {
             }
         }
     }
-    
+
     private void SetDuplicate(int index, bool newValue) {
         var item = sceneDataList[index];
         item.duplicateKey = newValue;
         sceneDataList[index] = item;
     }
-    
-    
+
 
     private void UpdateGroupDataIndices() {
         for (int i = 0; i < sceneDataGroups.Count; i++) {
@@ -597,18 +616,20 @@ public partial class SceneManagerEditor : Node {
             item.index = i;
             sceneDataGroups[i] = item;
         }
+
         EmitSignal(SignalName.IndicesChanged);
     }
-    
+
     private void UpdateSceneDataIndices() {
         for (int i = 0; i < sceneDataList.Count; i++) {
             var item = sceneDataList[i];
             item.index = i;
             sceneDataList[i] = item;
         }
+
         EmitSignal(SignalName.IndicesChanged);
     }
-    
+
     private void UpdateTagIndices() {
         for (int i = 0; i < tags.Count; i++) {
             var item = tags[i];
@@ -623,9 +644,9 @@ public partial class SceneManagerEditor : Node {
         var path = "res://addons/scene_manager_mono/editor/confirm/confirm_delete_dialog.tscn";
         return GodotHelper.LoadAndInstaniate<ConfirmationDialog>(path);
     }
-    
+
     ///// Static Functions /////
-    
+
     public static bool Exists() {
         return Instance is not null;
     }

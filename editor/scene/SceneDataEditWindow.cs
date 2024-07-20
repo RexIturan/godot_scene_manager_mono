@@ -1,7 +1,10 @@
 #if TOOLS
+using System;
 using System.Linq;
+using System.Runtime.Loader;
 using Godot;
 using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Util;
 
 namespace SceneManagerMono.Editor.Scene;
 
@@ -22,6 +25,12 @@ public partial class SceneDataEditWindow : Window {
         }
     }
 
+    ///// Editor Plugin Helper /////
+
+    private Action<AssemblyLoadContext> unloadHandle;
+
+    ///// Godot Functions /////
+    
     public override void _EnterTree() {
         base._EnterTree();
 
@@ -30,25 +39,20 @@ public partial class SceneDataEditWindow : Window {
         title = Title;
         
         sceneDataEditor.SceneData = Data;
-    }
-
-    public override void _Ready() {
-        base._Ready();
-
-        CloseRequested += Close;
-        if (SceneManagerEditor.Exists()) {
-            SceneManagerEditor.Instance.SceneDeleted += OnSceneDeleted;
-            SceneManagerEditor.Instance.Changed += OnChange;
-            SceneManagerEditor.Instance.Saved += OnSaved;
+        
+        this.TryConnect(Window.SignalName.CloseRequested, Close);
+        
+        if (SceneManagerEditor.Exists() && IsInstanceValid(SceneManagerEditor.Instance)) {
+            SceneManagerEditor.Instance.TryConnect(SceneManagerEditor.SignalName.SceneDeleted, OnSceneDeleted);
+            SceneManagerEditor.Instance.TryConnect(SceneManagerEditor.SignalName.Changed, OnChange);
+            SceneManagerEditor.Instance.TryConnect(SceneManagerEditor.SignalName.Saved, OnSaved);
         }
+        
+        unloadHandle = UnloadHelper.RegisterUnload(Cleanup);
     }
 
     public override void _ExitTree() {
-        if (SceneManagerEditor.Exists()) {
-            SceneManagerEditor.Instance.SceneDeleted -= OnSceneDeleted;
-            SceneManagerEditor.Instance.Changed -= OnChange;
-            SceneManagerEditor.Instance.Saved -= OnSaved;
-        }
+        Cleanup();
     }
 
     public override void _UnhandledKeyInput(InputEvent @event) {
@@ -60,6 +64,22 @@ public partial class SceneDataEditWindow : Window {
                     SceneManagerEditor.Instance?.Save();
                 }
             }
+        }
+    }
+
+    ///// Helper Functions /////
+    
+    private void Cleanup() {
+        UnloadHelper.UnregisterUnload(unloadHandle);
+        
+        if (!IsInstanceValid(this)) return;
+        
+        this.TryDisconnect(Window.SignalName.CloseRequested, Close);
+        
+        if (SceneManagerEditor.Exists() && IsInstanceValid(SceneManagerEditor.Instance)) {
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.SceneDeleted, OnSceneDeleted);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.Changed, OnChange);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.Saved, OnSaved);
         }
     }
     

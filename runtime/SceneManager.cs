@@ -43,19 +43,16 @@ public partial class SceneManager : Node {
     }
 
     //signals
-    [Signal]
-    public delegate void LoadPercentChangedEventHandler(int percent);
-
-    [Signal]
-    public delegate void LoadingFinishedEventHandler();
-
-    [Signal]
-    public delegate void SceneChangedEventHandler();
+    [Signal] public delegate void LoadPercentChangedEventHandler(int percent);
+    [Signal] public delegate void LoadingFinishedEventHandler();
+    [Signal] public delegate void SceneChangedEventHandler();
 
     // helper to await signals
     TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
     
     ///// Godot Functions /////
+
+    #region Godot Functions
 
     public override void _EnterTree() {
         if (Instance is null) {
@@ -102,6 +99,8 @@ public partial class SceneManager : Node {
         }
     }
 
+    #endregion
+
     ///// Public Functions /////
 
     public void ResetSceneStack() {
@@ -126,6 +125,7 @@ public partial class SceneManager : Node {
     }
     
     ///// async scene loading
+    #region Load Scene Async
 
     /// <summary>
     /// loads scene interactive
@@ -170,8 +170,11 @@ public partial class SceneManager : Node {
         }
     }
 
+    #endregion
+
     // public change scene functions
     //todo add transitions
+    #region ChangeScene
 
     public void ChangeScene(PackedScene scene, Options options) {
         if (ChangeScene(scene, options.addToHistory)) {
@@ -202,6 +205,8 @@ public partial class SceneManager : Node {
             EmitSignal(SignalName.SceneChanged);
         }
     }
+
+    #endregion
     
     ///// Private Functions /////
     

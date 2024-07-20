@@ -1,11 +1,14 @@
 #if TOOLS
+using System;
 using System.Linq;
+using System.Runtime.Loader;
 using Godot;
 using Godot.Collections;
 using SceneManagerMono.Editor.Data;
 using SceneManagerMono.Editor.Scene_List;
 using SceneManagerMono.Editor.Tags;
 using SceneManagerMono.Editor.Util;
+using SceneManagerMono.Util;
 
 namespace SceneManagerMono.Editor.Scene_Group;
 
@@ -31,6 +34,10 @@ public partial class SceneGroupEditWindow : Window {
         }
     }
     
+    ///// Editor Plugin Helper /////
+
+    private Action<AssemblyLoadContext> unloadHandle;
+    
     ///// Godot Functions /////
 
     public override void _EnterTree() {
@@ -38,12 +45,7 @@ public partial class SceneGroupEditWindow : Window {
         
         title = Title;
         
-        name ??= GetNode<LineEdit>("%DisplayName LineEdit"); 
-        imagePath ??= GetNode<FileInput>("%Image File Input");
-        imageTexture ??= GetNode<TextureRect>("%Image TextureRect");
-        sceneListDisplay ??= GetNode<SceneListDisplay>("%SceneList");
-        tagSelect ??= GetNode<TagSelect>("%TagSelect");
-        deleteButton = GetNode<Button>("%Delete");
+        CloseRequested += Close;
         
         if (SceneManagerEditor.Exists()) {
             SceneManagerEditor.Instance.Changed += UpdateInputs;
@@ -52,24 +54,28 @@ public partial class SceneGroupEditWindow : Window {
             SceneManagerEditor.Instance.Changed += OnChange;
             SceneManagerEditor.Instance.Saved += OnSaved;
         }
+
+        unloadHandle = UnloadHelper.RegisterUnload(Cleanup);
     }
 
     public override void _ExitTree() {
         base._ExitTree();
-        
-        if (SceneManagerEditor.Exists()) {
-            SceneManagerEditor.Instance.Changed -= UpdateInputs;
-            SceneManagerEditor.Instance.IndicesChanged -= UpdateData;
-            SceneManagerEditor.Instance.GroupDeleted -= OnGroupDeleted;
-            SceneManagerEditor.Instance.Changed -= OnChange;
-            SceneManagerEditor.Instance.Saved -= OnSaved;
-        }
+
+        Cleanup();
     }
     
     public override void _Ready() {
         base._Ready();
 
-        CloseRequested += Close;
+        
+        name ??= GetNode<LineEdit>("%DisplayName LineEdit"); 
+        imagePath ??= GetNode<FileInput>("%Image File Input");
+        imageTexture ??= GetNode<TextureRect>("%Image TextureRect");
+        sceneListDisplay ??= GetNode<SceneListDisplay>("%SceneList");
+        tagSelect ??= GetNode<TagSelect>("%TagSelect");
+        deleteButton = GetNode<Button>("%Delete");
+        
+        
 
         name.TextChanged += OnNameChanged;
         imagePath.Changed += OnImagePathChanged;
@@ -93,6 +99,24 @@ public partial class SceneGroupEditWindow : Window {
         }
     }
 
+    ///// Editor Helper Function /////
+    
+    private void Cleanup() {
+        UnloadHelper.UnregisterUnload(unloadHandle);
+        
+        if (!IsInstanceValid(this)) return;
+        
+        this.TryDisconnect(Window.SignalName.CloseRequested, Close);
+        
+        if (SceneManagerEditor.Exists() && IsInstanceValid(SceneManagerEditor.Instance)) {
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.Changed, UpdateInputs);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.IndicesChanged, UpdateData);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.GroupDeleted, OnGroupDeleted);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.Changed, OnChange);
+            SceneManagerEditor.Instance.TryDisconnect(SceneManagerEditor.SignalName.Saved, OnSaved);
+        }
+    }
+    
     ///// Callback Functions /////
     
     private void OnImagePathChanged() {

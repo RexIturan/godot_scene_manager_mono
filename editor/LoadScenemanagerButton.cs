@@ -1,5 +1,8 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Data;
+
+namespace SceneManagerMono.Editor;
 
 [Tool]
 public partial class LoadScenemanagerButton : Button {

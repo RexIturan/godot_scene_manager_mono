@@ -2,6 +2,8 @@
 using System.Linq;
 using Godot;
 
+namespace SceneManagerMono.Editor.Scene_Group;
+
 [Tool]
 public partial class AddSceneGroup : HBoxContainer {
     private LineEdit lineEdit;

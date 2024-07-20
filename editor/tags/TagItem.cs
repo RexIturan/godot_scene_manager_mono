@@ -1,5 +1,8 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Editor.Data;
+
+namespace SceneManagerMono.Editor.Tags;
 
 [Tool]
 public partial class TagItem : Container {

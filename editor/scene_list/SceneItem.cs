@@ -1,6 +1,11 @@
 #if TOOLS
 using Godot;
 using System.Diagnostics;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Scene;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene_List;
 
 [Tool]
 public partial class SceneItem : Control {

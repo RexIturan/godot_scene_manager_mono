@@ -1,6 +1,9 @@
 #if TOOLS
 using System;
 using Godot;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Resource_Settings;
 
 [Tool]
 public partial class CreateResourceDialog : ConfirmationDialog {

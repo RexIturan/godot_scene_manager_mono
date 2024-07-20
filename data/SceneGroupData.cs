@@ -1,5 +1,10 @@
 using Godot;
 using Godot.Collections;
+#if TOOLS
+using SceneManagerMono.Editor.Data;
+#endif
+
+namespace SceneManagerMono.Data;
 
 [Tool]
 [GlobalClass]
@@ -11,6 +16,7 @@ public partial class SceneGroupData : Resource {
     
     public SceneGroupData() {}
 
+#if TOOLS
     public SceneGroupData(SceneDataGroupItem groupData) {
         UpdateData(groupData);
     }
@@ -21,4 +27,5 @@ public partial class SceneGroupData : Resource {
         texture = groupData.icon;
         sceneIndexList = new Array<int>(groupData.scenes);
     }
+#endif
 }

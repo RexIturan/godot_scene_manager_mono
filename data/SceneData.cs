@@ -1,5 +1,10 @@
 using Godot;
 using Godot.Collections;
+#if TOOLS
+using SceneManagerMono.Editor.Data;
+#endif
+
+namespace SceneManagerMono.Data;
 
 [Tool]
 [GlobalClass]
@@ -14,6 +19,7 @@ public partial class SceneData : Resource {
 
     public SceneData() {}
     
+#if TOOLS
     public SceneData(SceneDataItem dataItem) {
         UpdateData(dataItem);
     }
@@ -29,4 +35,5 @@ public partial class SceneData : Resource {
             texture = ResourceLoader.Load<Texture2D>(dataItem.imagePath);
         }
     }
+#endif
 }

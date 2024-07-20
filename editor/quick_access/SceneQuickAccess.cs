@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Quick_Access;
+
 [Tool]
 public partial class SceneQuickAccess : Control {
     [Export] private PackedScene sceneItemPrefab;

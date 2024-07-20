@@ -1,5 +1,10 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Scene_Group;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene_List;
 
 [Tool]
 public partial class GroupedSceneContainer : Container {

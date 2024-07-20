@@ -1,6 +1,9 @@
 #if TOOLS
 using System.Linq;
 using Godot;
+using SceneManagerMono.Editor.Data;
+
+namespace SceneManagerMono.Editor.Scene;
 
 [Tool]
 public partial class SceneDataEditWindow : Window {

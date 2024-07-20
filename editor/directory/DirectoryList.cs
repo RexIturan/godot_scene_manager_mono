@@ -2,6 +2,8 @@
 using Godot;
 using System.Collections.Generic;
 
+namespace SceneManagerMono.Editor.Directory;
+
 [Tool]
 public partial class DirectoryList : Container {
     [Signal]

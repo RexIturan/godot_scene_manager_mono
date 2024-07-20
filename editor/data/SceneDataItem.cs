@@ -1,6 +1,9 @@
 ﻿#if TOOLS
 using System.Collections.Generic;
 using Godot;
+using SceneManagerMono.Data;
+
+namespace SceneManagerMono.Editor.Data;
 
 public struct SceneDataItem {
     public int index = 0;

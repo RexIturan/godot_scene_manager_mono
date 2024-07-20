@@ -2,6 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Godot;
 using Godot.Collections;
+#if TOOLS
+using SceneManagerMono.Editor.Data;
+#endif
+
+namespace SceneManagerMono.Data;
 
 [Tool]
 [GlobalClass]
@@ -83,7 +88,7 @@ public partial class SceneListCache : Resource {
             Add(sceneData.Key, sceneData.Path);
         }
     }
-    
+#if TOOLS
     public void InitFromList(
         List<SceneDataItem> sceneDataList,
         List<SceneDataGroupItem> sceneDataGroups,
@@ -209,4 +214,5 @@ public partial class SceneListCache : Resource {
             group.UpdateData(dataItem);
         }
     }
+#endif    
 }

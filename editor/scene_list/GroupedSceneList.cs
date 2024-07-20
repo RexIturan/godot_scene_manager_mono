@@ -1,6 +1,9 @@
 #if TOOLS
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono.Editor;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene_List;
 
 [Tool]
 public partial class GroupedSceneList : Container {

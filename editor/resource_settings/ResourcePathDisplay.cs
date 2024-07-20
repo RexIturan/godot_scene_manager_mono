@@ -2,6 +2,7 @@
 using System;
 using System.Runtime.Loader;
 using Godot;
+using SceneManagerMono.Editor.Util;
 using SceneManagerMono.Util;
 
 namespace SceneManagerMono.Editor.Resource_Settings;

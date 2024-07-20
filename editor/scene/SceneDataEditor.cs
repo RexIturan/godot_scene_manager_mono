@@ -1,6 +1,11 @@
 #if TOOLS
 using Godot;
 using Godot.Collections;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Tags;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene;
 
 [Tool]
 public partial class SceneDataEditor : Container {

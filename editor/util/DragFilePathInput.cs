@@ -2,6 +2,8 @@
 using System.Linq;
 using Godot;
 
+namespace SceneManagerMono.Editor.Util;
+
 [Tool]
 public partial class DragFilePathInput : LineEdit {
     //todo mage string array or string of multiple

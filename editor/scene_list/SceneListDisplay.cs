@@ -2,6 +2,9 @@
 using Godot;
 using System.Collections.Generic;
 using System.Linq;
+using SceneManagerMono.Editor.Data;
+
+namespace SceneManagerMono.Editor.Scene_List;
 
 [Tool]
 public partial class SceneListDisplay : Container {

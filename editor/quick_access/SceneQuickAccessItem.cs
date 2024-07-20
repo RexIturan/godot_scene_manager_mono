@@ -1,5 +1,9 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Editor.Scene;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Quick_Access;
 
 [Tool]
 public partial class SceneQuickAccessItem : Control {

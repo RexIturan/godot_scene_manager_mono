@@ -2,6 +2,12 @@
 using System.Linq;
 using Godot;
 using Godot.Collections;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Scene_List;
+using SceneManagerMono.Editor.Tags;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene_Group;
 
 [Tool]
 public partial class SceneGroupEditWindow : Window {

@@ -1,5 +1,7 @@
 ﻿using Godot;
 
+namespace SceneManagerMono.Editor.Util;
+
 public enum FileType {
     Scene,
     Image,

@@ -1,4 +1,7 @@
 using Godot;
+using SceneManagerMono.Editor.Scene_List;
+
+namespace SceneManagerMono.Editor;
 
 [Tool]
 public partial class SceneManager_EditorWindow : Control {

@@ -1,5 +1,8 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Directory;
 
 [Tool]
 public partial class DirectoryItem : Container {

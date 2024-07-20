@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Godot;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Scene_List;
+
+namespace SceneManagerMono.Editor.Scene_Key_Confilct;
 
 [Tool]
 public partial class SceneKeyConflictsDialog : AcceptDialog {

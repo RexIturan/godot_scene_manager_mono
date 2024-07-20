@@ -3,6 +3,9 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SceneManagerMono.Editor.Data;
+
+namespace SceneManagerMono.Editor.Directory;
 
 [Tool]
 public partial class AutomaticSceneImport : MarginContainer {

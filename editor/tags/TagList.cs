@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Tags;
+
 [Tool]
 public partial class TagList : Container {
     [Export] private PackedScene tagItemPrefab;

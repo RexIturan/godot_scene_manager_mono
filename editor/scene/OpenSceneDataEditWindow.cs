@@ -1,7 +1,9 @@
 #if TOOLS
 using System.Linq;
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono.Editor;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene;
 
 [Tool]
 public partial class OpenSceneDataEditWindow : Button {

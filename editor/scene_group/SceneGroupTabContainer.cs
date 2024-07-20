@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Scene_Group;
+
 [Tool]
 public partial class SceneGroupTabContainer : TabContainer {
     [Export] private PackedScene sceneGroupPagePrefab;

@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor;
+
 [Tool]
 public partial class SaveSceneManagerButton : Button {
     public override void _Ready() {

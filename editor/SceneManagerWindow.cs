@@ -3,6 +3,8 @@ using System.Runtime.Loader;
 using Godot;
 using SceneManagerMono.Util;
 
+namespace SceneManagerMono.Editor;
+
 [Tool]
 public partial class SceneManagerWindow : Window {
     private string title;

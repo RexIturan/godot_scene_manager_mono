@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Scene_List;
+
 [Tool]
 public partial class SeceneItemActionMenu : OptionButton {
     // private PopupMenu groupMenu;

@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor;
+
 [Tool]
 public partial class ToggleShowDeleteButton : CheckButton {
     public override void _Ready() {

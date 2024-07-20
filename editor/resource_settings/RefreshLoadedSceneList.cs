@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Resource_Settings;
+
 [Tool]
 public partial class RefreshLoadedSceneList : Button {
     ///// Godot Functions /////
@@ -11,15 +13,6 @@ public partial class RefreshLoadedSceneList : Button {
         if (SceneManagerEditor.Exists()) {
             Pressed += OnResfresh;    
         }
-    }
-
-    public override void _ExitTree() {
-        base._ExitTree();
-    }
-
-    public override void _Ready() {
-        base._Ready();
-
     }
 
     ///// Callback Functions /////

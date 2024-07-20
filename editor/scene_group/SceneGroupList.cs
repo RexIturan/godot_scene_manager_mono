@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Scene_Group;
+
 [Tool]
 public partial class SceneGroupList : Container {
     [Export] private PackedScene sceneGroupPrefab;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono;
+using SceneManagerMono.Data;
 using Array = Godot.Collections.Array;
 
 namespace SceneManagerMono.Runtime;
@@ -60,7 +60,11 @@ public partial class SceneManager : Node {
     public override void _EnterTree() {
         if (Instance is null) {
             Instance = this;
-            sceneListCache = ResourceLoader.Load<SceneListCache>(SceneManagerSettings.GetSceneListPath(), null, ResourceLoader.CacheMode.Replace);
+            sceneListCache = ResourceLoader.Load<SceneListCache>(
+                SceneManagerSettings.GetSceneListPath(),
+                null,
+                ResourceLoader.CacheMode.Replace
+            );
             sceneListCache.InitSceneDict();
         }
         else {

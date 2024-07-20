@@ -1,7 +1,10 @@
 #if TOOLS
 using System.Collections.Generic;
 using Godot;
+using SceneManagerMono.Editor.Util;
 using Container = Godot.Container;
+
+namespace SceneManagerMono.Editor.Directory;
 
 [Tool]
 public partial class DirectoryFilter : Container {

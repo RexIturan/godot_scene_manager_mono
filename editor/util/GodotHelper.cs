@@ -1,6 +1,8 @@
-﻿using Godot;
+﻿#if TOOLS
+using Godot;
 
-#if TOOLS
+namespace SceneManagerMono.Editor.Util;
+
 public static class GodotHelper {
     public static T LoadAndInstaniate<T>(string path, ResourceLoader.CacheMode cacheMode = ResourceLoader.CacheMode.Reuse) where T : Node {
         var packedScene =

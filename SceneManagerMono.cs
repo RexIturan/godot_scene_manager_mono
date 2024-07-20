@@ -1,5 +1,7 @@
 #if TOOLS
 using Godot;
+using SceneManagerMono.Editor;
+using SceneManagerMono.Editor.Util;
 
 namespace SceneManagerMono;
 

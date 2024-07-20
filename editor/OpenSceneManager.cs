@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono.Editor;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor;
 
 [Tool]
 public partial class OpenSceneManager : Button {

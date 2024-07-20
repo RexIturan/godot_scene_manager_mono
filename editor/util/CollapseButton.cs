@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Util;
+
 [Tool]
 public partial class CollapseButton : Button {
     [Export] private Control target;

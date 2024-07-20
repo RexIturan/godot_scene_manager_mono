@@ -1,6 +1,10 @@
 #if TOOLS
 using System.Collections.Generic;
 using Godot;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Scene_List;
+
+namespace SceneManagerMono.Editor.Scene_Group;
 
 [Tool]
 public partial class SceneGroupPage : Control {

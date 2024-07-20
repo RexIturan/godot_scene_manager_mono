@@ -1,7 +1,10 @@
 #if TOOLS
 using System.Linq;
 using Godot;
-using SceneManagerC.Addons.SceneManagerMono.Editor;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene_Group;
 
 [Tool]
 public partial class SceneGroupItem : Container {

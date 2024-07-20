@@ -1,5 +1,8 @@
 using Godot;
 using System.Diagnostics;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor.Scene;
 
 [Tool]
 public partial class AddNewScene : Container {

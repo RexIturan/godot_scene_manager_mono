@@ -2,6 +2,7 @@
 using Godot;
 using System.Diagnostics;
 
+namespace SceneManagerMono.Editor.Util;
 
 //todo export fileextension filter
 [Tool]

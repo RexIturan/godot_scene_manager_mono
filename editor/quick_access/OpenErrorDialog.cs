@@ -1,6 +1,8 @@
 #if TOOLS
 using Godot;
 
+namespace SceneManagerMono.Editor.Quick_Access;
+
 [Tool]
 public partial class OpenErrorDialog : Button {
     [Export] private PackedScene dialogPrefab;

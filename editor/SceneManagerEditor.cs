@@ -1,10 +1,15 @@
 #if TOOLS
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using Godot;
 using Godot.Collections;
-using SceneManagerC.Addons.SceneManagerMono.Editor;
+using SceneManagerMono.Data;
+using SceneManagerMono.Editor.Data;
+using SceneManagerMono.Editor.Util;
+
+namespace SceneManagerMono.Editor;
 
 [Tool]
 public partial class SceneManagerEditor : Node {
@@ -142,8 +147,9 @@ public partial class SceneManagerEditor : Node {
     }
 
     public void Save() {
-        sceneListCache ??= new SceneListCache();
+        Debug.Assert(sceneListCache is not null, "ScenemanagerEditor Save with null resource");
         
+        sceneListCache ??= new SceneListCache();
         sceneListCache.InitFromList(sceneDataList, sceneDataGroups, tags, ExcludeDirs, IncludeDirs);
 
         ResourceSaver.Save(sceneListCache, SceneManagerSettings.GetSceneListPath());

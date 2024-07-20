@@ -2,6 +2,8 @@
 using Godot;
 using Godot.Collections;
 
+namespace SceneManagerMono.Editor.Tags;
+
 [Tool]
 public partial class TagSelect : HFlowContainer {
     public Array<string> _selectedTags = new();

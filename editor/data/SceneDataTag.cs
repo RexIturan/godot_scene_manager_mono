@@ -1,4 +1,7 @@
-﻿public struct SceneDataTag {
+﻿#if TOOLS
+namespace SceneManagerMono.Editor.Data;
+
+public struct SceneDataTag {
     public int index = 0;
     public string name = "";
     public bool group = false;
@@ -17,3 +20,4 @@
     
     public SceneDataTag() { }
 }
+#endif

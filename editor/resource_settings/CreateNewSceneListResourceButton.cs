@@ -3,6 +3,8 @@ using System;
 using System.Runtime.Loader;
 using Godot;
 
+namespace SceneManagerMono.Editor.Resource_Settings;
+
 [Tool]
 public partial class CreateNewSceneListResourceButton : Button {
     private CreateResourceDialog Dialog => GetNode<CreateResourceDialog>("%ConfirmationDialog");

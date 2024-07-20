@@ -1,7 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#if TOOLS
+using System.Collections.Generic;
 using System.Linq;
 using Godot;
-using Godot.Collections;
+using SceneManagerMono.Data;
+
+namespace SceneManagerMono.Editor.Data;
 
 public struct SceneDataGroupItem {
     public int index = 0;
@@ -37,3 +40,4 @@ public struct SceneDataGroupItem {
         return FileAccess.FileExists(path);
     }
 }
+#endif

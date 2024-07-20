@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Godot;
 
-namespace SceneManagerC.Addons.SceneManagerMono.Editor; 
+namespace SceneManagerMono.Editor.Util; 
 
 public static class NodeExtensions {
     public static T GetFirstOrDefaultNode<T>(this Node root) {
